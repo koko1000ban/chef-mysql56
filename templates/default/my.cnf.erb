@@ -1,0 +1,27 @@
+[mysqld]
+user=mysql
+datadir=/var/lib/mysql
+socket=/var/lib/mysql/mysql.sock
+
+bind-address            = 0.0.0.0
+
+default-time-zone = '+00:00'
+character_set_server = <%= @server_charset %>
+sql_mode = NO_ENGINE_SUBSTITUTION,STRICT_TRANS_TABLES
+
+skip-character-set-client-handshake
+skip-name_resolve
+
+max_connections = <%= @max_connections %>
+
+<% if @innodb_file_per_table %>innodb_file_per_table<% end %>
+innodb_buffer_pool_size         = <%= @innodb_buffer_pool_size %>
+innodb_write_io_threads         = <%= @innodb_write_io_threads %>
+innodb_read_io_threads          = <%= @innodb_read_io_threads %>
+innodb_log_buffer_size          = <%= @innodb_log_buffer_size %>
+innodb_log_file_size            = <%= @innodb_log_file_size %>
+innodb_flush_log_at_trx_commit  = <%= @innodb_flush_log_at_trx_commit %>
+
+server-id = <%= node['mysql']['server_id'] %>
+log_bin    = <%= node['mysql']['log_bin'] %>
+binlog_format           = <%= node['mysql']['binlog_format'] %>
